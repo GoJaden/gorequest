@@ -1281,12 +1281,11 @@ func (s *SuperAgent) MakeRequest() (*http.Request, error) {
 		} else if len(s.SliceData) != 0 {
 			contentJson, _ = json.Marshal(s.SliceData)
 		}
-		if contentJson != nil {
-			contentReader = bytes.NewReader(contentJson)
-			contentType = "application/json"
-		}else{
+		if contentJson == nil {
 			contentJson,_ = json.Marshal(contentJson)
 		}
+		contentReader = bytes.NewReader(contentJson)
+		contentType = "application/json"
 	case TypeForm, TypeFormData, TypeUrlencoded:
 		var contentForm []byte
 		if s.BounceToRawString || len(s.SliceData) != 0 {
