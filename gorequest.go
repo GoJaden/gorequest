@@ -1284,6 +1284,8 @@ func (s *SuperAgent) MakeRequest() (*http.Request, error) {
 		if contentJson != nil {
 			contentReader = bytes.NewReader(contentJson)
 			contentType = "application/json"
+		}else{
+			contentJson,_ = json.Marshal(contentJson)
 		}
 	case TypeForm, TypeFormData, TypeUrlencoded:
 		var contentForm []byte
